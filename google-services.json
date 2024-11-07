@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "722945305552",
+    "project_id": "easylife-0483",
+    "storage_bucket": "easylife-0483.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722945305552:android:7e42b6916e31fa59f7e7d5",
+        "android_client_info": {
+          "package_name": "com.iqbal60483.switchcafe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAyvBGXKeq4EqDAu6OATxH7YwnhXDD1H8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
