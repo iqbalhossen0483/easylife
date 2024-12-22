@@ -105,7 +105,7 @@ const PurchaseProduct = ({ navigation }) => {
 
   return (
     <Common>
-      <ScrollView style={{ marginBottom: bottomMargin }}>
+      <ScrollView nestedScrollEnabled style={{ marginBottom: bottomMargin }}>
         <View style={commonStyles.formContainer}>
           <P bold style={commonStyles.formHeader}>
             Purchase Product
@@ -118,7 +118,6 @@ const PurchaseProduct = ({ navigation }) => {
               placeholder='Type supplier name'
               url={"/supplier?opt=id,name"}
               search={true}
-              height='auto'
               handler={(_, info) =>
                 setData((prev) => {
                   return { ...prev, supplierId: info.id };

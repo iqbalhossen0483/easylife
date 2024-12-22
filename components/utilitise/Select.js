@@ -7,8 +7,8 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
+import { ScrollView } from "react-native-gesture-handler";
 import useStore from "../../context/useStore";
 import { commonStyles } from "../../css/common";
 import { Fetch } from "../../services/common";
@@ -107,10 +107,12 @@ const Select = ({
 
       {show && (
         <ScrollView
+          keyboardShouldPersistTaps='handled'
+          nestedScrollEnabled={true}
           style={{
             ...commonStyles.selectView,
             top: top ? "-350%" : "100%",
-            height,
+            maxHeight: height,
           }}
         >
           {loading ? (

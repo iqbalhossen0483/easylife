@@ -1,15 +1,15 @@
-import { Image, Keyboard, Pressable, TextInput, View } from "react-native";
-import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { Image, Keyboard, Pressable, TextInput, View } from "react-native";
 
-import { Fetch, role, serverUrl } from "../../services/common";
-import FileInput from "../../components/utilitise/FileInput";
-import Button from "../../components/utilitise/Button";
-import Select from "../../components/utilitise/Select";
 import { Common } from "../../components/Common";
-import { commonStyles } from "../../css/common";
-import useStore from "../../context/useStore";
+import Button from "../../components/utilitise/Button";
+import FileInput from "../../components/utilitise/FileInput";
 import P from "../../components/utilitise/P";
+import Select from "../../components/utilitise/Select";
+import useStore from "../../context/useStore";
+import { commonStyles } from "../../css/common";
+import { Fetch, role, serverUrl } from "../../services/common";
 
 const initialState = {
   name: "",
@@ -169,7 +169,6 @@ const AddUser = ({ route, navigation }) => {
               defaultValue={route.params?.edit ? form.designation : ""}
               url=''
               header='value'
-              height='auto'
               handler={(_, info) =>
                 setForm((prev) => {
                   return {

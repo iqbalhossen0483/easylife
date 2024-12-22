@@ -107,7 +107,7 @@ const Production = ({ navigation }) => {
             <Select
               header='name'
               zIndex={200}
-              height={200}
+              height={100}
               url='/product?opt=id,name,stock'
               search={true}
               placeholder='Select product'
@@ -209,7 +209,6 @@ function AddProduct({ show, setShow, setData }) {
         url='/product?opt=id,name, stock'
         header='name'
         search={true}
-        height='auto'
         handler={(_, info) =>
           setProduct((prev) => {
             return { ...prev, ...info };

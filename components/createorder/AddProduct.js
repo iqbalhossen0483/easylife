@@ -44,7 +44,6 @@ const AddProduct = ({ show, setForm, setShow, products }) => {
         url='/product?opt=id,name,price,stock'
         header='name'
         search={true}
-        height='auto'
         handler={(_, info) =>
           setProduct({
             productId: info.id,

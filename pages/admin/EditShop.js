@@ -126,7 +126,6 @@ const EditShop = ({ route, navigation }) => {
               defaultValue={form.machine_type}
               placeholder='Machine Type'
               header='type'
-              height='auto'
               options={[
                 { id: 1, type: "switchCafe" },
                 { id: 2, type: "others" },

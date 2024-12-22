@@ -107,7 +107,6 @@ const CreateOrder = ({ route, navigation }) => {
               defaultValue={route.params?.edit && form.shopInfo?.shopName}
               header='shopName'
               title='address'
-              height='auto'
               handler={(_, info) =>
                 setForm((prev) => {
                   return {

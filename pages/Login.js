@@ -34,8 +34,8 @@ const Login = ({ navigation }) => {
         token,
         data: { user, database },
       } = await Fetch("login", "/login", "POST", data);
-      store.setLoading(false);
 
+      store.setLoading(false);
       await AsyncStorage.setItem("token", token);
       store.setDatabase(database);
       store.setUser(user);
