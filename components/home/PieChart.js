@@ -5,8 +5,8 @@ import { PieChart } from "react-native-chart-kit";
 import useStore from "../../context/useStore";
 import { Fetch } from "../../services/common";
 import Button from "../utilitise/Button";
-import Select from "../utilitise/Select";
 import { color } from "../utilitise/colors";
+import { DropDown } from "../utilitise/SelectDropdown";
 
 const PieChartData = () => {
   const [data, setData] = useState(null);
@@ -133,19 +133,18 @@ const PieChartData = () => {
           style={{ width: "60%" }}
           title='Be Specific'
         />
-        <View style={{ width: "35%" }}>
-          <Select
-            defaultValue={methods.name}
-            header='name'
-            name='method'
-            top={true}
-            editable={false}
-            placeholder='Month'
-            height={140}
-            options={[{ name: "Month" }, { name: "Year" }]}
-            handler={(_, info) => setMethods(info.name)}
-          />
-        </View>
+        <DropDown
+          options={[
+            { value: "Days", label: "Days" },
+            { value: "Month", label: "Month" },
+            { value: "Year", label: "Year" },
+            { value: "Clear", label: "Clear" },
+          ]}
+          setValue={(value) => {
+            if (value === "Clear") setDate(new Date());
+            else setMethods({ name: value });
+          }}
+        />
       </View>
     </View>
   );

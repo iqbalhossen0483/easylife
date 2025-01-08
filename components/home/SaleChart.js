@@ -8,7 +8,7 @@ import { Fetch } from "../../services/common";
 import Button from "../utilitise/Button";
 import { color } from "../utilitise/colors";
 import P from "../utilitise/P";
-import Select from "../utilitise/Select";
+import { DropDown } from "../utilitise/SelectDropdown";
 
 const SaleChart = () => {
   const [methods, setMethods] = useState("Month");
@@ -115,19 +115,18 @@ const SaleChart = () => {
           style={{ width: "60%" }}
           title='Be Specific'
         />
-        <View style={{ width: "35%" }}>
-          <Select
-            defaultValue={methods.name}
-            header='name'
-            name='method'
-            top={true}
-            editable={false}
-            placeholder='Month'
-            height={140}
-            options={[{ name: "Month" }, { name: "Year" }]}
-            handler={(_, info) => setMethods(info.name)}
-          />
-        </View>
+        <DropDown
+          options={[
+            { value: "Days", label: "Days" },
+            { value: "Month", label: "Month" },
+            { value: "Year", label: "Year" },
+            { value: "Clear", label: "Clear" },
+          ]}
+          setValue={(value) => {
+            if (value === "Clear") setDate(new Date());
+            else setMethods({ name: value });
+          }}
+        />
       </View>
       <ScrollView horizontal={true}>
         <View

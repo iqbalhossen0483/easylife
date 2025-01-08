@@ -2,16 +2,16 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 
-import { LoadingOnComponent } from "../utilitise/Loading";
-import { modifyCashReport } from "../../services/report";
-import { commonStyles } from "../../css/common";
 import useStore from "../../context/useStore";
-import { Fetch } from "../../services/common";
-import Button from "../utilitise/Button";
-import Select from "../utilitise/Select";
+import { commonStyles } from "../../css/common";
 import { style } from "../../css/home";
+import { Fetch } from "../../services/common";
+import { modifyCashReport } from "../../services/report";
 import BDT from "../utilitise/BDT";
+import Button from "../utilitise/Button";
+import { LoadingOnComponent } from "../utilitise/Loading";
 import P from "../utilitise/P";
+import { DropDown } from "../utilitise/SelectDropdown";
 
 const CashReport = ({ data }) => {
   const [date, setDate] = useState(null);
@@ -38,16 +38,15 @@ const CashReport = ({ data }) => {
       try {
         setLoading(true);
         const method = methods.name;
-        if (method === "Clear") return;
         let base = "/admin?cashReport=true&";
         const url =
-          method === "Days"
-            ? (base += `method=date&date=${date.toISOString()}`)
-            : method === "Month"
+          method === "Month"
             ? (base += `method=month&date=${date.toLocaleString("en-us", {
                 month: "long",
               })}&year=${date.getFullYear()}`)
-            : (base += `method=year&date=${date.getFullYear()}`);
+            : method === "Year"
+            ? (base += `method=year&date=${date.getFullYear()}`)
+            : (base += `method=date&date=${date.toISOString()}`);
         const report = await Fetch(store.database.name, url, "GET");
         const modified = modifyCashReport(report);
         setReport(modified);
@@ -107,22 +106,17 @@ const CashReport = ({ data }) => {
           style={{ width: "65%" }}
           title='Be Specific'
         />
-        <Select
-          defaultValue={methods.name}
-          header='name'
-          name='method'
-          style={{ width: "25%" }}
-          editable={false}
-          top={true}
-          placeholder='Select method'
-          height={140}
+        <DropDown
           options={[
-            { name: "Days" },
-            { name: "Month" },
-            { name: "Year" },
-            { name: "Clear" },
+            { value: "Days", label: "Days" },
+            { value: "Month", label: "Month" },
+            { value: "Year", label: "Year" },
+            { value: "Clear", label: "Clear" },
           ]}
-          handler={(_, info) => setMethods(info)}
+          setValue={(value) => {
+            if (value === "Clear") setDate(new Date());
+            else setMethods({ name: value });
+          }}
         />
       </View>
 

@@ -12,7 +12,7 @@ import Button from "./utilitise/Button";
 import { color } from "./utilitise/colors";
 import { LoadingOnComponent } from "./utilitise/Loading";
 import P from "./utilitise/P";
-import Select from "./utilitise/Select";
+import { DropDown } from "./utilitise/SelectDropdown";
 
 const StockReport = ({ data }) => {
   const [date, setDate] = useState(null);
@@ -187,24 +187,18 @@ const StockReport = ({ data }) => {
           style={{ width: "70%" }}
           title='Be Specific'
         />
-        <View style={{ width: "25%" }}>
-          <Select
-            defaultValue={methods.name}
-            header='name'
-            name='method'
-            top={true}
-            editable={false}
-            placeholder='Select method'
-            height={140}
-            options={[
-              { name: "Days" },
-              { name: "Month" },
-              { name: "Year" },
-              { name: "Clear" },
-            ]}
-            handler={(_, info) => setMethods(info)}
-          />
-        </View>
+        <DropDown
+          options={[
+            { value: "Days", label: "Days" },
+            { value: "Month", label: "Month" },
+            { value: "Year", label: "Year" },
+            { value: "Clear", label: "Clear" },
+          ]}
+          setValue={(value) => {
+            if (value === "Clear") setDate(new Date());
+            else setMethods({ name: value });
+          }}
+        />
       </View>
       {loading ? <LoadingOnComponent /> : null}
     </View>
