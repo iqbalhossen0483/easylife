@@ -1,7 +1,6 @@
 import { Linking } from "react-native";
 
 const ngrok = "https://iqbal.switchcafebd.com";
-// const ngrok = "https://3b91-113-11-54-157.ngrok-free.app";
 
 export async function Fetch(
   database = "",

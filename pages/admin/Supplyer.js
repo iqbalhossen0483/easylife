@@ -10,11 +10,7 @@ import { color } from "../../components/utilitise/colors";
 import P from "../../components/utilitise/P";
 import useStore from "../../context/useStore";
 import { styles } from "../../css/profile";
-import {
-  Fetch,
-  dateFormatter,
-  openNumber
-} from "../../services/common";
+import { Fetch, dateFormatter, openNumber } from "../../services/common";
 
 const Supplyer = ({ route, navigation }) => {
   const [suplier, setSuplier] = useState(null);
@@ -32,17 +28,21 @@ const Supplyer = ({ route, navigation }) => {
           "GET"
         );
         if (page) {
-          setSuplier((prev) => {
-            prev.orders = [...prev.orders, data?.data.orders];
-            return { ...prev };
+          setSuplier({
+            count: data.count,
+            data: {
+              ...suplier.data,
+              orders: [...suplier.data.orders, ...data.data.orders],
+            },
           });
         } else {
           setSuplier(data);
         }
-        store.setLoading(false);
       } catch (error) {
-        store.setLoading(false);
         store.setMessage({ msg: error.message, type: "error" });
+        navigation.navigate("error");
+      } finally {
+        store.setLoading(false);
       }
     })();
   }, [page, id]);
@@ -50,8 +50,8 @@ const Supplyer = ({ route, navigation }) => {
   if (!suplier?.data) return null;
   return (
     <Common>
-      <IOScrollView style={{ ...styles.container, marginBottom: 63 }}>
-        <View style={styles.profileContainer}>
+      <IOScrollView style={{ paddingTop: 10, marginBottom: 63 }}>
+        <View style={[styles.profileContainer, { marginHorizontal: 10 }]}>
           <View style={styles.profileWrapper}>
             <Avater url={suplier.data.profile} />
             <View>
@@ -69,13 +69,13 @@ const Supplyer = ({ route, navigation }) => {
             <P style={{ color: "#1b39bf" }}>
               Total Purchased: <BDT amount={suplier.data.totalPurchased} />
             </P>
-            <P color='green'>
+            <P color="green">
               Amount Given: <BDT amount={suplier.data.giveAmount} />
             </P>
-            <P color='orange'>
+            <P color="orange">
               Debt Amount: <BDT amount={suplier.data.debtAmount} />
             </P>
-            <P color='green'>
+            <P color="green">
               Got Discount: <BDT amount={suplier.data.discount} />
             </P>
           </View>
@@ -89,80 +89,87 @@ const Supplyer = ({ route, navigation }) => {
           </View>
         ) : null}
 
-        {suplier.data.orders?.length ? (
-          suplier.data.orders.map((item, i, arr) => (
-            <InView
-              key={item.id}
-              onChange={() => {
-                if (
-                  suplier?.count !== suplier?.data?.orders?.length &&
-                  i === arr.length - 1
-                ) {
-                  setPage((prev) => prev + 1);
-                }
-              }}
-            >
-              <Pressable
-                onPress={() =>
-                  navigation.navigate("purchasedDetails", { id: item.id })
-                }
-                style={styles.orderContainer}
+        <View style={{ marginBottom: 10 }}>
+          {suplier.data.orders?.length ? (
+            suplier.data.orders.map((item, i, arr) => (
+              <InView
+                key={item.id}
+                onChange={() => {
+                  if (
+                    suplier?.count &&
+                    suplier?.count !== suplier?.data?.orders?.length &&
+                    i === arr.length - 1
+                  ) {
+                    setPage((prev) => prev + 1);
+                  }
+                }}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("purchasedDetails", { id: item.id })
+                  }
+                  style={styles.orderContainer}
                 >
-                  <View>
-                    <View style={{ marginLeft: 6 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <View style={{ marginLeft: 6 }}>
+                        <P>
+                          <P bold> Purchased By:</P> {item.name}
+                        </P>
+                        <P>
+                          <P bold>Total Purchase:</P>{" "}
+                          <BDT amount={item.total_amount} />
+                        </P>
+                      </View>
+                    </View>
+                    <View>
                       <P>
-                        <P bold> Purchased By:</P> {item.name}
+                        <P bold>Payment:</P>
+                        <BDT amount={item.payment} />
                       </P>
                       <P>
-                        <P bold>Total Purchase:</P>{" "}
-                        <BDT amount={item.total_amount} />
+                        <P bold>Due:</P>{" "}
+                        <BDT
+                          style={{
+                            color: item.due ? color.orange : color.black,
+                          }}
+                          amount={item.due}
+                        />
                       </P>
                     </View>
-                  </View>
-                  <View>
-                    <P>
-                      <P bold>Payment:</P>
-                      <BDT amount={item.payment} />
-                    </P>
-                    <P>
-                      <P bold>Due:</P>{" "}
-                      <BDT
-                        style={{ color: item.due ? color.orange : color.black }}
-                        amount={item.due}
-                      />
-                    </P>
-                  </View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
-                      style={{
-                        ...styles.sign,
-                        backgroundColor: item.due ? "#dc2626" : "#22c55e",
-                      }}
-                    />
-                    <MaterialIcons
-                      style={{ color: color.darkGray }}
-                      name='keyboard-arrow-right'
-                      size={20}
-                      color='black'
-                    />
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <View
+                        style={{
+                          ...styles.sign,
+                          backgroundColor: item.due ? "#dc2626" : "#22c55e",
+                        }}
+                      />
+                      <MaterialIcons
+                        style={{ color: color.darkGray }}
+                        name="keyboard-arrow-right"
+                        size={20}
+                        color="black"
+                      />
+                    </View>
                   </View>
-                </View>
-                <P size={13} style={{ marginLeft: 7 }}>
-                  {dateFormatter(item.date)}
-                </P>
-              </Pressable>
-            </InView>
-          ))
-        ) : (
-          <P align='center'>No Orders</P>
-        )}
+                  <P size={13} style={{ marginLeft: 7 }}>
+                    {dateFormatter(item.date)}
+                  </P>
+                </Pressable>
+              </InView>
+            ))
+          ) : (
+            <P align="center">No Orders</P>
+          )}
+        </View>
       </IOScrollView>
     </Common>
   );

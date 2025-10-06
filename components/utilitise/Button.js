@@ -20,7 +20,7 @@ const Button = ({ title, style, onPress, disabled = false, variant }) => {
         ...style,
       }}
     >
-      <P color='light' bold size={15} align='center'>
+      <P color="light" bold size={15} align="center">
         {title}
       </P>
     </Pressable>

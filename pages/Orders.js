@@ -116,7 +116,7 @@ const Orders = ({ navigation }) => {
     <Common>
       <IOScrollView style={{ marginBottom: 57 }}>
         <SearchFilter
-          placeholder='Shop name Or nddress'
+          placeholder="Shop name Or nddress"
           orderPage={{ initCollSearch, seeAll }}
           search={initialsearch}
         />
@@ -169,10 +169,10 @@ const Orders = ({ navigation }) => {
                       <P size={15} bold>
                         {item.shopName}
                       </P>
-                      <P color='darkGray' size={13}>
+                      <P color="darkGray" size={13}>
                         {item.address}
                       </P>
-                      <P size={12} color='darkGray'>
+                      <P size={12} color="darkGray">
                         {dateFormatter(item.date)}
                       </P>
                     </View>
@@ -222,21 +222,21 @@ const Orders = ({ navigation }) => {
                       />
                       <MaterialIcons
                         style={{ color: color.darkGray }}
-                        name='keyboard-arrow-right'
+                        name="keyboard-arrow-right"
                         size={20}
-                        color='black'
+                        color="black"
                       />
                     </View>
                   </View>
                 </View>
-                <P color='darkGray' size={13}>
+                <P color="darkGray" size={13}>
                   {coll ? "Collected" : "Delivered"} By: {item.name}
                 </P>
               </Pressable>
             </InView>
           ))
         ) : (
-          <P align='center'>No order</P>
+          <P align="center">No order</P>
         )}
       </IOScrollView>
     </Common>

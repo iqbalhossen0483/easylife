@@ -64,7 +64,7 @@ const Customers = ({ navigation }) => {
     <Common>
       <IOScrollView style={{ marginBottom: 57 }}>
         <SearchFilter
-          placeholder='Shop name Or nddress'
+          placeholder="Shop name Or nddress"
           search={search}
           filter={false}
         />
@@ -116,7 +116,7 @@ const Customers = ({ navigation }) => {
                       <P size={15} bold>
                         {item.shopName}
                       </P>
-                      <P size={13} color='darkGray'>
+                      <P size={13} color="darkGray">
                         {item.address}
                       </P>
                       <Pressable
@@ -125,7 +125,7 @@ const Customers = ({ navigation }) => {
                           openNumber(item.phone);
                         }}
                       >
-                        <P size={13} color='green'>
+                        <P size={13} color="green">
                           {item.phone}
                         </P>
                       </Pressable>
@@ -133,13 +133,13 @@ const Customers = ({ navigation }) => {
                   </View>
                   <View>
                     {item.lastOrder ? (
-                      <P color='darkGray' size={13}>
+                      <P color="darkGray" size={13}>
                         Last Order: {dateFormatter(item.lastOrder)}
                       </P>
                     ) : null}
                     <P size={13}>Added By: {item.added_by_name}</P>
                     {item.due ? (
-                      <P color='orange' size={13} bold>
+                      <P color="orange" size={13} bold>
                         Due:
                         <BDT
                           style={{ color: color.orange }}

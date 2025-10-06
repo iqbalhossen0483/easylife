@@ -62,5 +62,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 5,
     paddingHorizontal: 7,
+    borderRadius: 5,
   },
 });
