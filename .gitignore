@@ -18,5 +18,5 @@ web-build/
 .metro-health-check*
 
 easylife-0483-firebase-adminsdk-r10ir-ec2f5dd2d0.json
-google-services.json
+# google-services.json
 
