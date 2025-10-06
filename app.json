@@ -24,9 +24,6 @@
       "package": "com.iqbal60483.switchcafe",
       "googleServicesFile": "./google-services.json"
     },
-    "web": {
-      "favicon": "./assets/logo.png"
-    },
     "plugins": [
       [
         "expo-image-picker",
